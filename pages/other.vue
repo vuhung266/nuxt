@@ -20,8 +20,8 @@
               :items="desserts"
               :search="search"
             >
-              <template  v-slot:item.f_name="{ item }" >
-                <a @click="topage_detailuser(item.id);" v-bind:alt="item.id">{{item.f_name}}</a>
+              <template  v-slot:item.name="{ item }" >
+                <a @click="topage_detailuser(item.id, item.name);" v-bind:alt="item.id">{{item.name}}</a>
               </template>
               <template  v-slot:item.picture="{ item }" >
                 <a @click="viewdetail(item.id);" v-bind:alt="item.id"><img v-bind:src="item.picture" class="abc"></a>
@@ -78,7 +78,10 @@ import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
 Vue.http.options.emulateJSON = true;
-var link = 'http://localhost/demo/getApi.php';
+Vue.http.headers.common['Access-Control-Allow-Origin'] = true; 
+Vue.http.headers.common['Access-Control-Allow-Origin'] = '*' ;
+var link = 'https://restapi.quiz.edu.vn/trungtamhoaiphuong/demo.php';
+//var link = 'students.json';
 export default {
   head: {
     title: "Home page"
@@ -93,16 +96,13 @@ export default {
       viewdetailUse: [],
       headers: [
         {
-          text: 'First name',
+          text: 'Họ tên',
           align: 'start',
           sortable: false,
-          value: 'f_name',
+          value: 'name',
         },
-        { text: 'Lastname', value: 'l_name' },
-        { text: 'avatar', value: 'picture' },
-        { text: 'picture', value: 'picture' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Iron (%)', value: 'iron' },
+        { text: 'Điện thoại', value: 'phone' },
+        { text: 'datecreate', value: 'datecreate' },
       ],
       getDetaiUser: [],
       desserts: [],
@@ -135,7 +135,7 @@ export default {
     },
     topage_detailuser: function(e){
       //this.$router.push('userdetail/uid/'+e);
-      this.$router.push({name: 'userdetail', params: {user_id: e}})
+      this.$router.push({name: 'userdetail', params: {user_id: e, user_name: name}})
     },
     backtolist: function(e){
       this.listuser=true;

@@ -1,6 +1,8 @@
 module.exports = {
   root: true,
-
+  baseUrl: process.env.NODE_ENV === 'production'
+    ? '/public/vue/demo-export/'
+    : '/',
   env: {
     node: true,
     jest: true

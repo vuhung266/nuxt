@@ -17,6 +17,15 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  proxy: {
+    '/api': {
+      target: 'https://restapi.quiz.edu.vn',
+      pathRewrite: {
+        '^/api': '/'
+      },
+      changOrigin: 'true'
+    }
+  },
   /*
   ** Customize the progress-bar color
   */
@@ -44,7 +53,8 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
   /*
   ** Axios module configuration

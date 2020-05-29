@@ -13,7 +13,7 @@
                 <v-list-item-content v-for="item in getDetaiUser">
                   <div class="overline mb-4">{{ item.email_id }}</div>
                   <v-list-item-title class="headline mb-1">{{ item.f_name }} {{ item.l_name }}</v-list-item-title>
-                  <v-list-item-subtitle>Ngày đăng ký: {{ item.created_date }}</v-list-item-subtitle>
+                  <v-list-item-subtitle>Ngày đăng ký: {{ item.created_date }} {{user_info.user_name}}</v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-avatar
@@ -43,13 +43,16 @@ export default {
   data () {
     return {
       getDetaiUser: [],
+      user_info : this.$route.params,
     }
+    
   },
   created: function () {
     this.viewdetail();
   },
   methods: {
     viewdetail: function(){
+      console.log(this.$route.params.user_id);
       let url = 'http://localhost/demo/getApi.php?detail='+this.$route.params.user_id; console.log(url);
       this.$http.get(url).then(function (response) {
         this.getDetaiUser = response.data;
